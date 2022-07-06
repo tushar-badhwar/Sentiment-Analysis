@@ -17,7 +17,7 @@ nltk.download('omw-1.4')
 
 class SentimentRecommenderModel:
 
-    ROOT_PATH = "/Users/tusharbadhwar/Downloads/Tushar Badhwar/Python/Topic Modelling NLP/Capstone/Pickle"
+    ROOT_PATH = "/Users/tusharbadhwar/Downloads/Tushar Badhwar/Python/Topic Modelling NLP/Capstone/Pickle/"
     MODEL_NAME = "sentiment-classification-xg-boost-model.pkl"
     VECTORIZER = "tfidf-vectorizer.pkl"
     RECOMMENDER = "user_final_rating.pkl"
@@ -30,7 +30,7 @@ class SentimentRecommenderModel:
             SentimentRecommenderModel.ROOT_PATH + SentimentRecommenderModel.VECTORIZER)
         self.user_final_rating = pickle.load(open(
             SentimentRecommenderModel.ROOT_PATH + SentimentRecommenderModel.RECOMMENDER, 'rb'))
-        self.data = pd.read_csv("dataset/sample30.csv")
+        self.data = pd.read_csv("/Users/tusharbadhwar/Downloads/Tushar Badhwar/Python/Topic Modelling NLP/Capstone/Pickle/movies.csv")
         self.cleaned_data = pickle.load(open(
             SentimentRecommenderModel.ROOT_PATH + SentimentRecommenderModel.CLEANED_DATA, 'rb'))
         self.lemmatizer = WordNetLemmatizer()
@@ -52,7 +52,6 @@ class SentimentRecommenderModel:
             filtered_data = self.cleaned_data[self.cleaned_data.id.isin(
                 recommendations)]
             # preprocess the text before tranforming and predicting
-            #filtered_data["reviews_text_cleaned"] = filtered_data["reviews_text"].apply(lambda x: self.preprocess_text(x))
             # transfor the input data using saved tf-idf vectorizer
             X = self.vectorizer.transform(
                 filtered_data["reviews_text_Scrubbed"].values.astype(str))
